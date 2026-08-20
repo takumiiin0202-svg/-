@@ -23,13 +23,13 @@
 └── assets/
     ├── css/style.css     共通スタイル（緑基調のパレット＋レイアウト）
     ├── js/main.js        共通スクリプト（モバイルナビの開閉）
-    └── images/ceo.jpg    代表者画像（現在はプレースホルダ画像）
+    └── images/ceo.jpg    代表者画像（1254×1254）
 ```
 
 ## 代表者画像の差し替え
 
-`assets/images/ceo.jpg` は差し替え前提のプレースホルダです。
-同じパス・同じファイル名で実際の画像を上書きすれば、そのまま表示されます。
+`assets/images/ceo.jpg` を同じパス・同じファイル名で上書きすれば、
+コードを変更せずに差し替えられます。
 
 - 表示枠は 1:1（正方形）・`object-fit: cover`。正方形の画像がトリミングなしで収まります
 - 縦横比を変える場合は `style.css` の `.message-figure img` の `aspect-ratio` を調整
