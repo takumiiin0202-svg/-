@@ -23,33 +23,48 @@ ART = r"""
      \/__/         \/__/         \|__|         \/__/     ~~
 """
 
-# Futuristic HUD palette (256-color): electric blue -> cyan -> teal -> white
-TECH_COLORS = [33, 39, 45, 51, 87, 195, 255]
+# Wild mode: fire/lava palette (256-color), scattered per-character for a
+# chaotic, blazing look instead of a calm gradient.
+FIRE_COLORS = [196, 202, 208, 214, 220, 226, 198, 199]
 RESET = "\033[0m"
 BOLD = "\033[1m"
-DIM = "\033[2m"
-BG = "\033[48;5;233m"  # near-black background, HUD-style contrast
-FRAME_COLOR = "\033[38;5;39m"
+BG = "\033[48;5;233m"
+STRIPE_COLORS = [196, 226]  # red/yellow hazard stripes
 
 
-def tech_line(text, color):
-    return f"{BG}{BOLD}\033[38;5;{color}m{text}{RESET}"
+def fire_char(ch, seed):
+    if ch == " ":
+        return ch
+    color = FIRE_COLORS[seed % len(FIRE_COLORS)]
+    return f"{BOLD}\033[38;5;{color}m{ch}{RESET}{BG}"
 
 
-def frame_line(text):
-    return f"{BG}{DIM}{FRAME_COLOR}{text}{RESET}"
+def hazard_border(width):
+    chars = []
+    for i in range(width):
+        color = STRIPE_COLORS[i % 2]
+        chars.append(f"\033[38;5;{color}m▓{RESET}{BG}")
+    return "".join(chars)
 
 
-def print_futuristic(art):
+def print_wild(art):
     lines = art.strip("\n").splitlines()
     width = max(len(line) for line in lines) + 4
 
-    print(frame_line("╔" + "═" * 4 + "[ SYSTEM ONLINE ]" + "═" * (width - 22) + "╗"))
-    for i, line in enumerate(lines):
-        color = TECH_COLORS[i % len(TECH_COLORS)]
+    print(f"{BG}{hazard_border(width)}{RESET}")
+    print(f"{BG}{BOLD}\033[38;5;226m  ⚡ WARNING: WILD MODE ACTIVATED ⚡{RESET}")
+    print(f"{BG}{hazard_border(width)}{RESET}")
+
+    seed = 0
+    for line in lines:
         padded = f"  {line.ljust(width - 4)}  "
-        print(f"{frame_line('║')}{tech_line(padded, color)}{frame_line('║')}")
-    print(frame_line("╚" + "═" * 4 + "[ HELLO_WORLD.EXE :: RENDER COMPLETE ]" + "═" * max(width - 43, 0) + "╝"))
+        rendered = "".join(fire_char(ch, seed + j) for j, ch in enumerate(padded))
+        seed += 7
+        print(f"{BG}{rendered}{RESET}")
+
+    print(f"{BG}{hazard_border(width)}{RESET}")
+    print(f"{BG}{BOLD}\033[38;5;196m  \U0001f525 HELLO_WORLD.EXE :: SYSTEM OVERDRIVE \U0001f525{RESET}")
+    print(f"{BG}{hazard_border(width)}{RESET}")
 
 
-print_futuristic(ART)
+print_wild(ART)
