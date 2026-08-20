@@ -298,6 +298,45 @@ a { color: var(--color-accent); }
   color: var(--color-accent);
 }
 
+/* ---------- 代表者メッセージ ---------- */
+.message-block {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.message-figure {
+  margin: 0;
+}
+.message-figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--color-bg-subtle);
+  border-bottom: 3px solid var(--color-accent);
+}
+.message-figure figcaption {
+  margin-top: 0.75rem;
+  font-weight: bold;
+}
+
+.message-role {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.message-body p + p { margin-top: var(--space); }
+
+.message-sign {
+  text-align: right;
+  color: var(--color-text-muted);
+}
+
 /* ---------- テーブル ---------- */
 .profile-table {
   width: 100%;
@@ -379,6 +418,12 @@ a { color: var(--color-accent); }
   }
 
   .hero-title { font-size: 1.5rem; }
+
+  .message-block {
+    grid-template-columns: 1fr;
+    gap: var(--space);
+  }
+  .message-figure { max-width: 200px; }
 
   .profile-table,
   .profile-table tbody,
