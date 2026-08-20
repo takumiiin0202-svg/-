@@ -1,0 +1,3 @@
+名前: hogehoge
+趣味: スポーツ観戦
+好きな生成AIツール: Claude Code
