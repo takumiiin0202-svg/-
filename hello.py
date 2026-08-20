@@ -23,4 +23,22 @@ ART = r"""
      \/__/         \/__/         \|__|         \/__/     ~~
 """
 
-print(ART)
+# Neon glow palette (256-color): magenta -> pink -> cyan -> purple
+NEON_COLORS = [201, 207, 213, 51, 87, 93, 165]
+RESET = "\033[0m"
+BOLD = "\033[1m"
+BG = "\033[48;5;233m"  # near-black background for glow contrast
+
+
+def neon_line(text, color):
+    return f"{BG}{BOLD}\033[38;5;{color}m{text}{RESET}"
+
+
+def print_neon(art):
+    lines = art.strip("\n").splitlines()
+    for i, line in enumerate(lines):
+        color = NEON_COLORS[i % len(NEON_COLORS)]
+        print(neon_line(line, color))
+
+
+print_neon(ART)
