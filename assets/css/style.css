@@ -312,7 +312,7 @@ a { color: var(--color-accent); }
 .message-figure img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   background: var(--color-bg-subtle);
   border-bottom: 3px solid var(--color-accent);
