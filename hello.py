@@ -23,22 +23,33 @@ ART = r"""
      \/__/         \/__/         \|__|         \/__/     ~~
 """
 
-# Neon glow palette (256-color): magenta -> pink -> cyan -> purple
-NEON_COLORS = [201, 207, 213, 51, 87, 93, 165]
+# Futuristic HUD palette (256-color): electric blue -> cyan -> teal -> white
+TECH_COLORS = [33, 39, 45, 51, 87, 195, 255]
 RESET = "\033[0m"
 BOLD = "\033[1m"
-BG = "\033[48;5;233m"  # near-black background for glow contrast
+DIM = "\033[2m"
+BG = "\033[48;5;233m"  # near-black background, HUD-style contrast
+FRAME_COLOR = "\033[38;5;39m"
 
 
-def neon_line(text, color):
+def tech_line(text, color):
     return f"{BG}{BOLD}\033[38;5;{color}m{text}{RESET}"
 
 
-def print_neon(art):
+def frame_line(text):
+    return f"{BG}{DIM}{FRAME_COLOR}{text}{RESET}"
+
+
+def print_futuristic(art):
     lines = art.strip("\n").splitlines()
+    width = max(len(line) for line in lines) + 4
+
+    print(frame_line("╔" + "═" * 4 + "[ SYSTEM ONLINE ]" + "═" * (width - 22) + "╗"))
     for i, line in enumerate(lines):
-        color = NEON_COLORS[i % len(NEON_COLORS)]
-        print(neon_line(line, color))
+        color = TECH_COLORS[i % len(TECH_COLORS)]
+        padded = f"  {line.ljust(width - 4)}  "
+        print(f"{frame_line('║')}{tech_line(padded, color)}{frame_line('║')}")
+    print(frame_line("╚" + "═" * 4 + "[ HELLO_WORLD.EXE :: RENDER COMPLETE ]" + "═" * max(width - 43, 0) + "╝"))
 
 
-print_neon(ART)
+print_futuristic(ART)
