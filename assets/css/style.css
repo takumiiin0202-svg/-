@@ -1,0 +1,367 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   たたき台用のベーススタイル
+   デザイン・配色は未確定のため、最低限のレイアウトと可読性のみを定義しています。
+   色やタイポグラフィを変える場合は :root の変数を差し替えてください。
+   ========================================================================== */
+
+:root {
+  --color-text: #222;
+  --color-text-muted: #666;
+  --color-bg: #fff;
+  --color-bg-subtle: #f5f5f5;
+  --color-border: #ddd;
+  --color-accent: #2b5c8a;
+
+  --container-width: 1080px;
+  --space: 1rem;
+  --space-lg: 3rem;
+}
+
+/* ---------- リセット（最小限） ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body,
+h1, h2, h3, h4,
+p, ul, ol, dl, dd, figure {
+  margin: 0;
+}
+
+ul, ol { padding-left: 0; }
+
+img { max-width: 100%; height: auto; }
+
+/* ---------- ベース ---------- */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", Meiryo, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.8;
+}
+
+a { color: var(--color-accent); }
+
+.container {
+  width: min(100% - 2rem, var(--container-width));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 0;
+  top: 0;
+  padding: 0.5rem 1rem;
+  background: var(--color-bg);
+  z-index: 100;
+}
+
+/* ---------- ヘッダー / ナビゲーション ---------- */
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space);
+  padding-block: var(--space);
+}
+
+.site-logo {
+  font-weight: bold;
+  letter-spacing: 0.08em;
+}
+.site-logo a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.global-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+}
+.global-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+.global-nav a:hover,
+.global-nav a:focus { text-decoration: underline; }
+.global-nav [aria-current="page"] { font-weight: bold; }
+
+/* ハンバーガーボタン（狭い画面でのみ表示） */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+}
+.nav-toggle-bar {
+  width: 1.2em;
+  height: 2px;
+  background: currentColor;
+  box-shadow: 0 5px 0 currentColor, 0 -5px 0 currentColor;
+}
+
+/* ---------- ページ見出し / パンくず ---------- */
+.page-head {
+  padding-block: var(--space-lg);
+  background: var(--color-bg-subtle);
+}
+
+.page-title {
+  font-size: 1.75rem;
+}
+
+.page-lead {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+}
+
+.breadcrumb {
+  padding-block: var(--space);
+  font-size: 0.875rem;
+}
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+.breadcrumb li + li::before {
+  content: "／";
+  margin-right: 0.5rem;
+  color: var(--color-text-muted);
+}
+
+/* ---------- セクション ---------- */
+.section {
+  padding-block: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+.section:first-of-type { border-top: none; }
+
+.section-title {
+  margin-bottom: var(--space);
+  font-size: 1.375rem;
+}
+
+.section p + p,
+.section p + ul,
+.section p + ol,
+.section h3 { margin-top: var(--space); }
+
+.section ul,
+.section ol { padding-left: 1.25rem; }
+
+/* ---------- ヒーロー ---------- */
+.hero {
+  padding-block: calc(var(--space-lg) * 1.5);
+  background: var(--color-bg-subtle);
+}
+
+.hero-title { font-size: 2rem; }
+
+.hero-lead {
+  margin-top: var(--space);
+  max-width: 40em;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: var(--space-lg);
+}
+
+/* ---------- ボタン ---------- */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  color: #fff;
+  text-decoration: none;
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+.button:hover,
+.button:focus { opacity: 0.85; }
+
+.button-ghost {
+  color: var(--color-accent);
+  background: transparent;
+}
+
+/* ---------- カード ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space);
+}
+
+.card {
+  padding: var(--space);
+  border: 1px solid var(--color-border);
+}
+.card h3 { font-size: 1.0625rem; }
+.card p { margin-top: 0.5rem; }
+
+.card-sub {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: normal;
+  color: var(--color-text-muted);
+}
+
+/* ---------- リスト類 ---------- */
+.link-list {
+  list-style: none;
+  padding-left: 0 !important;
+}
+.link-list li + li { margin-top: 0.5rem; }
+
+.news-list,
+.history-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem var(--space);
+}
+.news-list dt,
+.history-list dt { color: var(--color-text-muted); }
+.news-list dd,
+.history-list dd { margin: 0; }
+
+.anchor-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space);
+  padding: 0;
+  list-style: none;
+}
+
+.spec-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem var(--space);
+  margin-top: var(--space);
+  padding-top: var(--space);
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.9375rem;
+}
+.spec-list dt { color: var(--color-text-muted); }
+.spec-list dd { margin: 0; }
+
+.flow-list li + li { margin-top: 0.5rem; }
+.flow-list strong { display: block; }
+
+.statement {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* ---------- テーブル ---------- */
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.profile-table th,
+.profile-table td {
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid var(--color-border);
+}
+.profile-table th {
+  width: 10em;
+  background: var(--color-bg-subtle);
+  font-weight: normal;
+  white-space: nowrap;
+}
+.profile-table ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+/* ---------- 地図プレースホルダ ---------- */
+.map-placeholder {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  color: var(--color-text-muted);
+  background: var(--color-bg-subtle);
+  border: 1px dashed var(--color-border);
+}
+
+/* ---------- CTA ---------- */
+.cta {
+  background: var(--color-bg-subtle);
+}
+
+/* ---------- フッター ---------- */
+.site-footer {
+  padding-block: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space);
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space);
+  list-style: none;
+}
+.footer-nav a { color: inherit; }
+
+.copyright { color: var(--color-text-muted); }
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 767px) {
+  .nav-toggle { display: inline-flex; }
+
+  .global-nav {
+    flex-basis: 100%;
+  }
+  .global-nav[hidden] { display: none; }
+  .global-nav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+  .global-nav li + li { border-top: 1px solid var(--color-border); }
+  .global-nav a {
+    display: block;
+    padding-block: 0.75rem;
+  }
+
+  .hero-title { font-size: 1.5rem; }
+
+  .profile-table,
+  .profile-table tbody,
+  .profile-table tr,
+  .profile-table th,
+  .profile-table td { display: block; width: auto; }
+  .profile-table tr + tr { margin-top: -1px; }
+  .profile-table th + td { border-top: none; }
+}
